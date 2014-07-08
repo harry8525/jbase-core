@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="lib/require.js"></script>
+<script type="text/javascript">
+requirejs.config({
+  baseUrl: 'dist',
+  paths: {
+    'SubControl': 'main'
+  }
+});
+</script>
+</head>
+<body>
+  <script type="text/javascript">
+
+  require(['SubControl'], function(SubControl) {
+    var childControl = new SubControl();
+
+    childControl.renderHtml();
+    });
+
+  </script>
+
+</body>
+</html>
