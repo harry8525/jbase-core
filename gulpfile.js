@@ -4,6 +4,7 @@ var tsc = require('gulp-tsc');
 var jasmine = require('gulp-jasmine');
 var requirejs = require('gulp-rjs');
 var uglify = require('gulp-uglifyjs');
+var rjs = require('requirejs');
 
 gulp.task('clean', function() {
   return gulp.src('dist')
@@ -26,24 +27,31 @@ gulp.task('jasmine', ['tsc'], function() {
     }));
 });
 
-gulp.task('rjs', ['tsc'], function() {
-  return gulp.src(['dist/*.js'])
-    .pipe(gulp.dest('build'))
-    .pipe(requirejs({
-      baseUrl: 'build'
-    }));
-  /*,
-      modules: [{
-        name: 'Control',
-      }, {
-        name: 'EmbedView',
-        exclude: ['Control']
-      }]
-    }));
-*/
+gulp.task('rjs', [], function(cb) {
+  rjs.optimize({
+    baseUrl: 'dist',
+    dir: 'dist/merge',
+    modules: [{
+      name: 'Control'
+    }, {
+      name: 'SharedControl',
+      exclude: ['Control']
+    }, {
+      name: 'EmbedView',
+      exclude: ['Control', 'SharedControl']
+    }, {
+      name: 'SetView',
+      exclude: ['Control', 'SharedControl']
+    }],
 
-  //.pipe(uglify())
-  // .pipe(gulp.dest('dist'));
+    onModuleBundleComplete: function(data) {
+
+    }
+
+  }, function(buildResponse) {
+    console.log('build response', buildResponse);
+    cb();
+  }, cb);
 });
 
 
