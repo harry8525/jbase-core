@@ -30,6 +30,7 @@
     "phantomjs": "^1.9.7-12",
     "karma-html-reporter": "^0.2.3",
     "gulp-requirejs": "^0.1.3",
-    "gulp-uglifyjs": "^0.4.2"
+    "gulp-uglifyjs": "^0.4.2",
+    "gulp-rjs": "^0.1.0"
   }
 }

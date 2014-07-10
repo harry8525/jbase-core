@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var clean = require('gulp-clean');
 var tsc = require('gulp-tsc');
 var jasmine = require('gulp-jasmine');
-var requirejs = require('gulp-requirejs');
+var requirejs = require('gulp-rjs');
 var uglify = require('gulp-uglifyjs');
 
 gulp.task('clean', function() {
@@ -26,15 +26,25 @@ gulp.task('jasmine', ['tsc'], function() {
     }));
 });
 
-gulp.task('rjs', function() {
+gulp.task('rjs', ['tsc'], function() {
   return gulp.src(['dist/*.js'])
+    .pipe(gulp.dest('build'))
     .pipe(requirejs({
-      name: 'SubControl',
-      baseUrl: 'dist',
-      out: 'main.js'
-    }))
+      baseUrl: 'build'
+    }));
+  /*,
+      modules: [{
+        name: 'Control',
+      }, {
+        name: 'EmbedView',
+        exclude: ['Control']
+      }]
+    }));
+*/
+
   //.pipe(uglify())
-  .pipe(gulp.dest('dist'));
+  // .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['tsc']);
+
+gulp.task('default', ['rjs']);

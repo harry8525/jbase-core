@@ -6,7 +6,8 @@
 requirejs.config({
   baseUrl: 'dist',
   paths: {
-    'SubControl': 'main'
+    'Control': 'ControlMerge',
+
   }
 });
 </script>
@@ -14,10 +15,12 @@ requirejs.config({
 <body>
   <script type="text/javascript">
 
-  require(['SubControl'], function(SubControl) {
-    var childControl = new SubControl();
+  require(['EmbedView', 'SetView'], function(EmbedView, SetView) {
+    var embedView = new EmbedView();
+    var setView = new SetView();
 
-    childControl.renderHtml();
+    alert(embedView.renderHtml());
+    alert(setView.renderHtml());
     });
 
   </script>

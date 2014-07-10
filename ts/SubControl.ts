@@ -4,9 +4,14 @@ class SubControl extends Control {
 
   public constructor() {
     super();
-    this.events.autoWire();
 
+    this.events.autoWire();
   }
+
+  public renderHtml() : string {
+    return "hello world";
+  }
+
 }
 
 export = SubControl;
