@@ -5,6 +5,7 @@ class DataContext {
 
   public constructor() {
     this.events = new EventGroup(this);
+    this.events.declare('change');
   }
 
   public dispose() {

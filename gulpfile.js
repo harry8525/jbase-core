@@ -33,8 +33,8 @@ gulp.task('rjs', function() {
       baseUrl: 'dist',
       out: 'main.js'
     }))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'));
+  //.pipe(uglify())
+  .pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', ['tsc']);
