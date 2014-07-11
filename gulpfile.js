@@ -7,7 +7,7 @@ var uglify = require('gulp-uglifyjs');
 var rjs = require('requirejs');
 
 gulp.task('clean', function() {
-  return gulp.src('dist')
+  return gulp.src(['dist', 'build'])
     .pipe(clean());
 });
 
@@ -27,10 +27,11 @@ gulp.task('jasmine', ['tsc'], function() {
     }));
 });
 
-gulp.task('rjs', [], function(cb) {
+gulp.task('rjs', ['tsc'], function(cb) {
   rjs.optimize({
     baseUrl: 'dist',
-    dir: 'dist/merge',
+    dir: 'build',
+    optimize: '',
     modules: [{
       name: 'Control'
     }, {
@@ -42,17 +43,11 @@ gulp.task('rjs', [], function(cb) {
     }, {
       name: 'SetView',
       exclude: ['Control', 'SharedControl']
-    }],
-
-    onModuleBundleComplete: function(data) {
-
-    }
-
+    }]
   }, function(buildResponse) {
-    console.log('build response', buildResponse);
+    console.log(buildResponse);
     cb();
   }, cb);
 });
-
 
 gulp.task('default', ['rjs']);
