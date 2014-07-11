@@ -102,9 +102,11 @@ class EventGroup {
     target = target || this._parent;
     eventNamePrefix = 'on' + (eventNamePrefix || '');
 
-    for (var propertyName in this._parent) {
-      if (this._parent.hasOwnProperty(propertyName) && typeof this._parent[propertyName] === 'function' && propertyName.indexOf(eventNamePrefix) === 0) {
-        var eventName = propertyName.substr(eventNamePrefix.length,1).toLowerCase() + propertyName.substr(eventNamePrefix + 1);
+    var proto = this._parent.constructor.prototype;
+
+    for (var propertyName in proto) {
+      if (typeof proto[propertyName] === 'function' && propertyName.indexOf(eventNamePrefix) === 0) {
+        var eventName = propertyName.substr(eventNamePrefix.length,1).toLowerCase() + propertyName.substr(eventNamePrefix.length + 1);
 
         if (EventGroup.isDeclared(target, eventName)) {
           this.on(this._parent, eventName, this._parent[propertyName]);

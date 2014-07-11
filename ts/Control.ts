@@ -90,7 +90,7 @@ class Control {
         html = this.events.raise(RENDERHTML_EVENT, { dataContext: this._dataContext, subElements: this._subElements });
       }
       else {
-        this._renderDefaultHtml();
+        html = this._renderDefaultHtml();
       }
     }
 

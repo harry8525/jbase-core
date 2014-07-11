@@ -8,12 +8,13 @@ class EmbedView extends Control {
 
   constructor() {
     super();
+    this.events.autoWire();
 
     this.child = new SharedControl();
     this.child2 = new SubControl();
   }
 
-  public renderHtml() {
+  public onRenderHtml() {
     return 'im EmbedView and my child says: ' + this.child.renderHtml() + ' ' + this.child2.renderHtml();
   }
 }

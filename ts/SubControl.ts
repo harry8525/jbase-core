@@ -8,7 +8,7 @@ class SubControl extends Control {
     this.events.autoWire();
   }
 
-  public renderHtml() : string {
+  public onRenderHtml() : string {
     return "hello world";
   }
 
