@@ -3,7 +3,13 @@ class View<ViewModelType> {
   public name: string;
   public viewModel: ViewModelType;
 
-  public setData(data) {}
+  constructor() {
+     this.viewModel = new ViewModelType();
+  }
+
+  public setData(data) {
+    viewModel.setData(data);
+  }
 
   public renderHtml(): string {
     return this.onRenderHtml(this.viewModel);
@@ -19,21 +25,15 @@ class ViewModel<DataModelType> {
 
   // defaults to copying all data model values to view model for reading purposes.
   // This alleviates the need to
-  private onDataModelChange(dataModel) {
-    if (this.dataModel) {
-      //mix(this, dataModel);
-    }
+
+  public setData(data: any) {
+
   }
-
-  public getProperty(propertyName) { }
 }
 
-class DataModel {
-  public setData(data: any) { }
-}
 
 // ViewModel interface. (GENERATED)
-interface IMyControlModel {
+interface IMyControlData {
   name: string;
   age: number;
 
@@ -44,8 +44,8 @@ interface IMyControlModel {
 //class MyControl implements IView<ViewModel<any>> {
 class MyControl extends View<MyControlModel> {
   public viewType: string = 'MyControl';
-  public viewModelType: string = 'MyControlModel';
-  public viewModel: MyControlModel;
+  public viewModelType: string = require('MyControlModel');
+  public viewModel = 'MyControlModel';
 
   public constructor() {
     super();
@@ -58,19 +58,28 @@ class MyControl extends View<MyControlModel> {
   }
 }
 
+// Subclass example
+class MySubControl extends MyControl {
+  public viewModel =
+}
+
 // View model (Manually, optionally written.)
-class MyControlModel extends ViewModel<any> implements IMyControlModel {
+class MyControlModel extends ViewModel<any> implements IMyControlData {
   // Default values.
   public name: string = 'David';
   public age: number = 21;
   public gender: string = 'male';
   public backgroundColor: string = 'black';
 
+  // optional override
   public setData(data: any) {
     // data is sent from the caller.
   }
 
-  public onClick() {}
+  // default click handler.
+  public onClick() {
+    alert('hi');
+  }
 }
 
 // get data.
@@ -87,6 +96,7 @@ c.setData({
   name: 'Person',
   age: 12
 });
+
 // data is mixed into the view model directly by default.
 // The viewmodel can alter this behavior, and for example choose to send the data to the datamodel.
 
